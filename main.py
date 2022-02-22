@@ -12,7 +12,6 @@ turtle.shape(image)
 screen.update()
 state_names = StateNames()
 states_found = []
-states_missing = []
 
 
 while len(states_found) < 49:
@@ -22,10 +21,8 @@ while len(states_found) < 49:
     all_states = state_data.state.to_list()
 
     if user_input is None:
-        for state in all_states:
-            if state not in states_found:
-                states_missing.append(state)
-        pandas.DataFrame(states_missing).to_csv("states_to_learn.csv")
+        missing_states = [state for state in all_states if state not in states_found]
+        pandas.DataFrame(missing_states).to_csv("states_to_learn.csv")
         break
 
     for state in all_states:
